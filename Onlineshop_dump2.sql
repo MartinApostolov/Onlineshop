@@ -241,7 +241,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`order_id`),
   UNIQUE KEY `order_id` (`order_id`),
   KEY `customer_id` (`customer_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
   CONSTRAINT `status` CHECK (`status` IN ("pending","on_the_way","cancelled", "arrived"))
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -401,7 +401,7 @@ CREATE TABLE `transactions` (
   KEY `order_id` (`order_id`),
   KEY `payment_info_id` (`payment_info_id`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`payment_info_id`) REFERENCES `payment_information` (`payment_info_id`)
+  CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`payment_info_id`) REFERENCES `payment_information` (`payment_info_id`),
   CONSTRAINT `status_of payment` CHECK (`status_of payment` IN ("pending","cancelled", "finished"))
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
