@@ -4,6 +4,7 @@
 -- ------------------------------------------------------
 -- Server version	8.0.35
 
+drop schema if exists Onlineshop;
 create schema Onlineshop;
 use Onlineshop;
 
