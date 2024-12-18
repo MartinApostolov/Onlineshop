@@ -366,7 +366,7 @@ CREATE TABLE `reviews` (
   KEY `product_id` (`product_id`),
   KEY `reviewer_id` (`reviewer_id`),
   CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
-  CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`reviewer_id`) REFERENCES `customers` (`customer_id`)
+  CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`reviewer_id`) REFERENCES `customers` (`customer_id`),
   CONSTRAINT `ratingCheck` CHECK(`rating` > 0 and `rating` <= 5)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
