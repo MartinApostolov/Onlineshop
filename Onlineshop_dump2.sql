@@ -242,6 +242,7 @@ CREATE TABLE `orders` (
   UNIQUE KEY `order_id` (`order_id`),
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
+  CONSTRAINT `status` CHECK (`status` IN ("pending","on_the_way","cancelled", "arrived"))
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -251,7 +252,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,1,'2024-12-15 14:30:00','Completed',199.99,'123 Elm Street'),(2,2,'2024-12-16 10:00:00','Pending',99.99,'456 Oak Avenue'),(3,3,'2024-12-17 15:00:00','Completed',499.49,'789 Pine Road'),(4,4,'2024-12-18 09:00:00','Shipped',59.99,'987 Birch Lane'),(5,5,'2024-12-19 12:45:00','Cancelled',349.99,'456 Cedar Drive'),(6,6,'2024-12-20 17:00:00','Completed',29.99,'123 Spruce Street'),(7,7,'2024-12-21 13:30:00','Pending',129.99,'678 Maple Ave'),(8,8,'2024-12-22 11:00:00','Completed',149.99,'789 Aspen Blvd'),(9,9,'2024-12-23 08:15:00','Shipped',89.99,'321 Palm Road'),(10,10,'2024-12-24 14:45:00','Pending',199.99,'654 Oak Circle');
+INSERT INTO `orders` VALUES (1,1,'2024-12-15 14:30:00','arrived',199.99,'123 Elm Street'),(2,2,'2024-12-16 10:00:00','pending',99.99,'456 Oak Avenue'),(3,3,'2024-12-17 15:00:00','arrived',499.49,'789 Pine Road'),(4,4,'2024-12-18 09:00:00','on_the_way',59.99,'987 Birch Lane'),(5,5,'2024-12-19 12:45:00','cancelled',349.99,'456 Cedar Drive'),(6,6,'2024-12-20 17:00:00','arrived',29.99,'123 Spruce Street'),(7,7,'2024-12-21 13:30:00','pending',129.99,'678 Maple Ave'),(8,8,'2024-12-22 11:00:00','arrived',149.99,'789 Aspen Blvd'),(9,9,'2024-12-23 08:15:00','on_the_way',89.99,'321 Palm Road'),(10,10,'2024-12-24 14:45:00','pending',199.99,'654 Oak Circle');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +368,7 @@ CREATE TABLE `reviews` (
   KEY `reviewer_id` (`reviewer_id`),
   CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`reviewer_id`) REFERENCES `customers` (`customer_id`),
-  CONSTRAINT `ratingCheck` CHECK(`rating` > 0 and `rating` <= 5)
+  CONSTRAINT `ratingCheck` CHECK(`rating` => 1 and `rating` <= 5)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -401,6 +402,7 @@ CREATE TABLE `transactions` (
   KEY `payment_info_id` (`payment_info_id`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`payment_info_id`) REFERENCES `payment_information` (`payment_info_id`)
+  CONSTRAINT `status_of payment` CHECK (`status_of payment` IN ("pending","cancelled", "finished"))
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -410,7 +412,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES (1,1,1,199.99,'Success','2024-12-15 14:35:00'),(2,2,2,99.99,'Pending','2024-12-16 10:05:00'),(3,3,3,499.49,'Success','2024-12-17 15:10:00'),(4,4,4,59.99,'Success','2024-12-18 09:10:00'),(5,5,5,349.99,'Failed','2024-12-19 12:50:00'),(6,6,6,29.99,'Success','2024-12-20 17:05:00'),(7,7,7,129.99,'Pending','2024-12-21 13:35:00'),(8,8,8,149.99,'Success','2024-12-22 11:05:00'),(9,9,9,89.99,'Success','2024-12-23 08:20:00'),(10,10,10,199.99,'Pending','2024-12-24 14:50:00');
+INSERT INTO `transactions` VALUES (1,1,1,199.99,'finished','2024-12-15 14:35:00'),(2,2,2,99.99,'pending','2024-12-16 10:05:00'),(3,3,3,499.49,'finished','2024-12-17 15:10:00'),(4,4,4,59.99,'finished','2024-12-18 09:10:00'),(5,5,5,349.99,'cancelled','2024-12-19 12:50:00'),(6,6,6,29.99,'finished','2024-12-20 17:05:00'),(7,7,7,129.99,'pending','2024-12-21 13:35:00'),(8,8,8,149.99,'finished','2024-12-22 11:05:00'),(9,9,9,89.99,'finished','2024-12-23 08:20:00'),(10,10,10,199.99,'pending','2024-12-24 14:50:00');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
