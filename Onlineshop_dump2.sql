@@ -359,7 +359,7 @@ CREATE TABLE `reviews` (
   `review_id` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
   `reviewer_id` int NOT NULL,
-  `rating` decimal(3,1) NOT NULL,
+  `rating` decimal(2,1) NOT NULL,
   `comment` text,
   PRIMARY KEY (`review_id`),
   UNIQUE KEY `review_id` (`review_id`),
